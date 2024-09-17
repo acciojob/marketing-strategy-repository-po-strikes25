@@ -12,11 +12,11 @@ public class MarketingStrategyManager {
     }
 
     public void createStrategy(MarketingStrategy strategy) {
-    	//your code goes here
+        MarketingStrategy marketingStrategy = new MarketingStrategy(strategy.getName(), strategy.getDescription(), strategy.getTargetAudience(), strategy.getBudget(), strategy.getPotentialROI());
+        strategies.add(marketingStrategy);
     }
 
     public MarketingStrategy getStrategyByName(String name) {
-    	//your code goes here
         return strategies.stream()
                 .filter(strategy -> strategy.getName().equals(name))
                 .findFirst()
@@ -24,22 +24,25 @@ public class MarketingStrategyManager {
     }
 
     public void updateStrategy(MarketingStrategy updatedStrategy) {
-    	//your code goes here
+        MarketingStrategy existingStrategy = getStrategyByName(updatedStrategy.getName());
+        existingStrategy.setBudget(updatedStrategy.getBudget());
+        existingStrategy.setDescription(updatedStrategy.getDescription());
+        existingStrategy.setTargetAudience(updatedStrategy.getTargetAudience());
+        existingStrategy.setPotentialROI(updatedStrategy.getPotentialROI());
     }
 
     public void deleteStrategy(String name) {
-    	//your code goes here
+        MarketingStrategy existingStrategy = getStrategyByName(name);
+        strategies.remove(existingStrategy);
     }
 
     public List<MarketingStrategy> getStrategiesInBudgetRange(double minBudget, double maxBudget) {
-    	//your code goes here
         return strategies.stream()
                 .filter(strategy -> strategy.getBudget() >= minBudget && strategy.getBudget() <= maxBudget)
                 .collect(Collectors.toList());
     }
 
     public List<MarketingStrategy> getAllStrategies() {
-    	//your code goes here
         return new ArrayList<>(strategies);
     }
 }
